@@ -58,17 +58,38 @@ ADD R5, R5, #1
 
 NO_Z_NEGATION
 
-;Get the Dmanhattan;
+;Get the Dmanhattan
 AND R6, R6, #0
 ADD R6, R3, R4
 ADD R6, R6, R5
 
+;Compare the manhattan distance with the Goal Dist by making goal dist negative and adding
 
+;Make Goal_dist negative
+AND R7, R7, #0
+LD R7, GOAL_DIST
+NOT R7, R7
+ADD R7, R7, #1
 
+;Perform the subtraction
+ADD R7, R6, R7
+BRp OUTSIDE_BOUNDS
+AND R0, R0, #0
+LEA R0, INBOUNDS
+CHAT
+BRnzp SKIP
+
+OUTSIDE_BOUNDS
+AND R0, R0, #0
+LEA R0, OUTBOUNDS
+CHAT
+
+SKIP
 REG
 HALT
-INBOUNDS    .STRINGZ "The player is within distance of the goal\n"
-OUTBOUNDS   .STRINGZ "The player is outside the goal bounds\n"
+
+INBOUNDS    .STRINGZ "The player is within distance of the goal \n"
+OUTBOUNDS   .STRINGZ "The player is outside the goal bounds \n"
 G_X         .FILL   #100
 G_Y         .FILL   #100    
 G_Z         .FILL   #100
