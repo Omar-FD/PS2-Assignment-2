@@ -23,9 +23,11 @@ DIV_SUB
     LD R4, NUMBER_TO_CONVERT
 
     DIV_ACT
-    ADD R5, R5, #1
     ADD R4, R4, #-2
+    BRn END_DIV
+    ADD R5, R5, #1
     BRp DIV_ACT
+
     RET
 
 
