@@ -10,20 +10,27 @@ GETP
 
 
 LD R4, NUMBER_TO_CONVERT
-DIV_SUB
-;Clearing the reg to store the number and one for the counter
-    ADD R5, R4, #-2
-    BRn EXIT
 
-    ADD R4, R4, #-2
+    DIV_SUB ; Division Algorithm
+    ;Clearing the reg to store the number and one for the counter
+        AND R5, R5, #0
+        ADD R5, R4, #-2
+        BRn EXIT
 
-    ADD R6, R6, #1
-    BR DIV_SUB
-EXIT
-JSR BIN_SUB
+        ADD R4, R4, #-2
 
+        ADD R6, R6, #1
+        BRnzp DIV_SUB
+    EXIT
+    JSR BIN_SUB
+    REG
+    AND R4, R4, #0
+    ADD R4, R4, R6
+    REG
+    AND R6, R6, #0
+    ADD R4, R4, #0
+BRp DIV_SUB
 
-REG
 HALT
 NUMBER_TO_CONVERT   .FILL	#34
 
