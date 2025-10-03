@@ -2,51 +2,22 @@
     AND R0, R0, #0
     AND R1, R1, #0
     AND R2, R2, #0
+    AND R4, R4, #0
 
-    GETP
+    GETP ; Getting Player Position
+    ;Negating the height for subtraction
+    ADD R4, R1, #0
+    NOT R4, R4
+
+    ADD R0, R0, #1
     GETH
-    NOT R1, R1
-    ADD R1, R1, #1
-
-    STI R1, REF_HEIGHT ; Storing 
-
+    REG
+    JSR CHECK_AND_REPLACE ; Calling Subroutine
     
-    ADD R2, R2, #1 ; x+0, z+1
-    GETH
-    JSR CHECK_AND_REPLACE
-
-    ADD R0, R0, #1 ; x+1, z+1
-    GETH
-    JSR CHECK_AND_REPLACE
-
-    ADD R2, R2, #-1; x+1, z+0
-    GETH
-    JSR CHECK_AND_REPLACE
-
-    ADD R2, R2, #-1; x+1, z-1
-    GETH
-    JSR CHECK_AND_REPLACE
-
-    ADD R0, R0, #-1; x+0, z-1
-    GETH
-    JSR CHECK_AND_REPLACE
-    
-    ADD R0, R0, #-1; x-1, z-1
-    GETH
-    JSR CHECK_AND_REPLACE
-
-    ADD R2, R2, #1; x-1, z+0
-    GETH
-    JSR CHECK_AND_REPLACE
-
-    ADD R2, R2, #1; x-1, z+1
-    GETH
-    JSR CHECK_AND_REPLACE
-
     HALT
 
-    REF_HEIGHT      .FILL	x3010
-
     CHECK_AND_REPLACE
-        
+        ADD R5, R4, R1
+        REG
+    RET
 .END
